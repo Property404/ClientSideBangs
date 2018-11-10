@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "ClientSideBangs",
+  "version": "0.1",
+
+  "description": "Redirects certain bangs on the client side instead of asking DDG, allowing for a faster search experience",
+
+  "icons": {
+    "48": "icons/48.png"
+  },
+
+  "permissions":["*://duckduckgo.com/*", "webRequest"],
+
+  "background": 
+    {
+      "scripts": ["main.js"]
+    }
+
+}
