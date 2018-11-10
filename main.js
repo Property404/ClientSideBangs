@@ -14,7 +14,8 @@ const BANG_DICT =
 		"gh":"https://github.com/search?q=",
 		"a":"https://www.amazon.com/s/?field-keywords=",
 		"tw":"https://twitter.com/search?q=",
-		"spotify":"https://open.spotify.com/search/results/"
+		"spotify":"https://open.spotify.com/search/results/",
+		"mdn":"https://developer.mozilla.org/en-US/search?q="
 	}
 
 function redirect(url)
