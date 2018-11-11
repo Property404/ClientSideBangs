@@ -9,7 +9,17 @@
     "48": "icons/48.png"
   },
 
-  "permissions":["*://duckduckgo.com/*", "webRequest"],
+  "permissions":["*://duckduckgo.com/*", "webRequest", "storage"],
+
+  "options_ui":{
+		"page":"options.html"
+  },
+
+  "applications":{
+	  "gecko":{
+		  "id":"ddgcsbr@example.com"
+	  }
+  },
 
   "background": 
     {
