@@ -1,7 +1,11 @@
 let current_id = 0;
 
-function saveOptions(e) {
+function saveOptionsListener(e)
+{
 	e.preventDefault();
+	saveOptions();
+}
+function saveOptions() {
 
 	let new_sets = {};
 	for(let child of document.getElementById("sets").children)
@@ -51,6 +55,7 @@ function removeSet(id)
 	let child = document.getElementById(""+id);
 	console.log(child);
 	child.parentElement.removeChild(child);
+	saveOptions();
 }
 
 function addSet(bang, query)
@@ -79,7 +84,7 @@ document.addEventListener("DOMContentLoaded",
 	function(){
 		restoreOptions();
 		document.getElementById("add").addEventListener("click",newSet);
-		document.getElementById("save").addEventListener("click", saveOptions);
+		document.getElementById("save").addEventListener("click", saveOptionsListener);
 	}
 );
 
