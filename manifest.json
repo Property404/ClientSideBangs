@@ -3,7 +3,7 @@
   "name": "ClientSideBangs",
   "version": "0.1",
 
-  "description": "Redirects certain bangs on the client side instead of asking DDG, allowing for a faster search experience",
+  "description": "Redirects certain bangs on the client side instead of asking DDG, allowing for a faster search experience and customization",
 
   "icons": {
     "48": "icons/48.png"
@@ -23,7 +23,7 @@
 
   "background": 
     {
-      "scripts": ["main.js"]
+      "scripts": ["common.js", "main.js"]
     }
 
 }

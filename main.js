@@ -1,22 +1,6 @@
 const BASE = "https://duckduckgo.com/?q=";
 const BANG = "%21"
-
-
-const BANG_DICT = 
-	{
-		"w":"https://wikipedia.org/wiki/Search?search=",
-		"g":"https://www.google.com/search?hl=en&q=",
-		"bing":"http://www.bing.com/search?q=",
-		"b":"http://www.bing.com/search?q=",
-		"bv":"https://www.bing.com/videos?q=",
-		"yt":"https://www.youtube.com/results?search_query=",
-		"r":"https://www.reddit.com/search?q=",
-		"gh":"https://github.com/search?q=",
-		"a":"https://www.amazon.com/s/?field-keywords=",
-		"tw":"https://twitter.com/search?q=",
-		"spotify":"https://open.spotify.com/search/results/",
-		"mdn":"https://developer.mozilla.org/en-US/search?q="
-	}
+let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
 function redirect(url)
 {
@@ -27,7 +11,7 @@ function redirect(url)
 
 function getURL(bang_value)
 {
-	return BANG_DICT[bang_value];
+	return bang_dictionary[bang_value];
 }
 
 function listener(req)
@@ -82,3 +66,10 @@ browser.webRequest.onBeforeRequest.addListener(
 	listener,
 	{urls: ["*://duckduckgo.com/?q=*"]}
 );
+browser.storage.onChanged.addListener(function(){
+	let getting = browser.storage.sync.get("sets");
+	getting.then(
+		function(result){bang_dictionary = result.sets;},
+		function(err){cosnole.log(err);}
+	);
+});
