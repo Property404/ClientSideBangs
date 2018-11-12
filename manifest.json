@@ -6,7 +6,7 @@
   "description": "Redirects certain bangs on the client side instead of asking DDG, allowing for a faster search experience and customization",
 
   "icons": {
-    "48": "icons/48.png"
+    "48": "images/ddg-48.png"
   },
 
   "permissions":["*://duckduckgo.com/*", "webRequest", "storage"],
