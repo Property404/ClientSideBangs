@@ -63,7 +63,7 @@ function addSet(bang, query)
 	tr.innerHTML =`
 <td><input type="text" id="${id}_bang" value="${bang}"></input></td>
 <td><input type="text" id="${id}_query" value="${query}"></input></td>
-<td><button id="${id}_remove">-</button></td>`;
+<td><button id="${id}_remove">❌</button></td>`;
 
 	document.getElementById("sets").appendChild(tr);
 	document.getElementById(`${id}_remove`).addEventListener("click", function(){removeSet(id);});
