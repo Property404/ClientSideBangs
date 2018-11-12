@@ -1,5 +1,9 @@
 # Client Side Bangs
 
-A firefox extension for DuckDuckGo users. Redirects DuckDuckGo queries with bangs on the client side, allowing for customization and speed improvements  
+A Firefox extension to allow you to define your own DuckDuckGo bangs, which redirect on the client side instead of asking the DuckDuckGo server
+
+
+
+Install [here](https://addons.mozilla.org/en-US/firefox/addon/client-side-bangs/)
 
 ![](images/screenshot.png)
