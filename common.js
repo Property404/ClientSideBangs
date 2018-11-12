@@ -2,8 +2,8 @@ const DEFAULT_BANG_DICTIONARY =
 	{
 		"w":"https://wikipedia.org/wiki/Search?search=",
 		"g":"https://www.google.com/search?hl=en&q=",
-		"bing":"http://www.bing.com/search?q=",
-		"b":"http://www.bing.com/search?q=",
+		"bing":"https://www.bing.com/search?q=",
+		"b":"https://www.bing.com/search?q=",
 		"bv":"https://www.bing.com/videos?q=",
 		"yt":"https://www.youtube.com/results?search_query=",
 		"r":"https://www.reddit.com/search?q=",
