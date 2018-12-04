@@ -1,75 +1,53 @@
-const BASE = "https://duckduckgo.com/?q=";
-const BANG = "%21"
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
-function redirect(url)
+function parseURL (url)
 {
-	browser.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		browser.tabs.update(tabs[0].id, {url: url});
-	});
-}
+	// Extract the 'q' URI parameter.
+	let query = /q=(:?[^&]*\![^&]*)/.exec(url);
 
-function getURL(bang_value)
-{
-	return bang_dictionary[bang_value];
+	if (!query) {
+		return;
+	}
+
+	query = query[1];
+
+	// Extract bang value. No need for null check because '!' is here anyway,
+	// and the rest is optional.
+	const bang = /!(:?[^+]*)/.exec(query)[1];
+
+	// Sanitize the query by removing bang value and replacing plus characters
+	// with spaces.
+	query = query.replace(/![^\+]+/, '').replace(/\++/g, ' ');
+
+	return [query, bang];
 }
 
 function listener(req)
 {
-	let bang_loc=BASE.length;//bang location
-	for (;bang_loc<req.url.length;bang_loc++)
-	{
-		if(req.url.substr(bang_loc, 3) == BANG)
-			break;
-	}
+	let res;
 
-	// No bangs
-	if(bang_loc == req.url.length)
-	{
-		return;
-	}
+	if ((res = parseURL(req.url))) {
+		const [query, bang] = res;
 
-	// Identify bang 
-	let bang_value = "";
-	let bang_length = BANG.length;
-
-	for(;bang_length+bang_loc<req.url.length;bang_length++)
-	{
-		const c = req.url[bang_length+bang_loc];
-		if( c=='&' || c=='+')
-		{
-			if(c=='+')
-				bang_length+=1;
-			break;
+		if (bang_dictionary[bang]) {
+			const url = bang_dictionary[bang] + query;
+			browser.tabs.update(req.tabId, { url });
 		}
-		bang_value += c;
 	}
-
-	// Get search url
-	let search_url = getURL(bang_value);
-	if(search_url == null)
-	{
-		console.log("No client side bang");
-		return;
-	}
-
-	// Strip away bang
-	let query = req.url.split('&')[0];
-	query = query.substr(BASE.length, bang_loc-BASE.length)
-			+ query.substr(bang_loc+bang_length, query.length-bang_loc-bang_length);
-
-	redirect(search_url+query);
-
-
 }
+
 browser.webRequest.onBeforeRequest.addListener(
 	listener,
 	{urls: ["*://duckduckgo.com/?q=*"]}
 );
-browser.storage.onChanged.addListener(function(){
-	let getting = browser.storage.sync.get("sets");
-	getting.then(
-		function(result){bang_dictionary = result.sets;},
-		function(err){cosnole.log(err);}
-	);
+
+// Fetch settings after manual addon reloading.
+browser.storage.sync.get('sets').then(function (result) {
+	bang_dictionary = result.sets;
+});
+
+browser.storage.onChanged.addListener(function (changes, where){
+	if (changes.sets && where == 'sync') {
+		bang_dictionary = changes.sets.newValue;
+	}
 });
