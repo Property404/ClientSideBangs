@@ -66,10 +66,14 @@ browser.webRequest.onBeforeRequest.addListener(
 	listener,
 	{urls: ["*://duckduckgo.com/?q=*"]}
 );
-browser.storage.onChanged.addListener(function(){
-	let getting = browser.storage.sync.get("sets");
-	getting.then(
-		function(result){bang_dictionary = result.sets;},
-		function(err){cosnole.log(err);}
-	);
+
+// Fetch settings after manual addon reloading.
+browser.storage.sync.get('sets').then(function (result) {
+	bang_dictionary = result.sets;
+});
+
+browser.storage.onChanged.addListener(function (changes, where){
+	if (changes.sets && where == 'sync') {
+		bang_dictionary = changes.sets.newValue;
+	}
 });
