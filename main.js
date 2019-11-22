@@ -2,11 +2,11 @@ const BASE = "https://duckduckgo.com/?q=";
 const BANG = "%21"
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
-function redirect(url)
+function redirect(tabId, url)
 {
-	browser.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		browser.tabs.update(tabs[0].id, {url: url});
-	});
+	console.log("Redirect tab: "+tabId)
+	console.log("Redirect url: "+url)
+	browser.tabs.update(tabId, {url: url});
 }
 
 function getURL(bang_value)
@@ -58,9 +58,18 @@ function listener(req)
 	query = query.substr(BASE.length, bang_loc-BASE.length)
 			+ query.substr(bang_loc+bang_length, query.length-bang_loc-bang_length);
 
-	redirect(search_url+query);
 
-
+	if(query)
+	{
+		console.log("Redirect");
+		redirect(req.tabId, search_url+query);
+	}
+	else
+	{
+		// Redirect to main page if no query
+		console.log("To main page");
+		redirect(req.tabId, search_url.split("/").slice(0,3).join("/"));
+	}
 }
 browser.webRequest.onBeforeRequest.addListener(
 	listener,
