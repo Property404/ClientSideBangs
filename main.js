@@ -47,7 +47,7 @@ function listener(req)
 
 	// Get search url
 	let search_url = getURL(bang_value);
-	if(search_url == null)
+	if(!search_url)
 	{
 		console.log("No client side bang");
 		return;
