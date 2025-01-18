@@ -1,6 +1,6 @@
 "use strict";
 
-const DEFAULT_BANG_DICTIONARY = 
+const DEFAULT_BANG_DICTIONARY =
 	{
         "d": "https://dagans.dev/search?q=",
 		"g":"https://www.google.com/search?hl=en&q=",
