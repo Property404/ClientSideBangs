@@ -4,6 +4,7 @@ const DEFAULT_BANG_DICTIONARY = {
     "ddg": "https://duckduckgo.com/?q=",
     "gh":"https://github.com/search?q=",
     "g":"https://www.google.com/search?hl=en&q=",
+    "mw": "https://www.merriam-webster.com/dictionary/",
     "r":"https://www.reddit.com/search?q=",
     "spotify":"https://open.spotify.com/search/",
     "w":"https://wikipedia.org/wiki/Special:Search?search=",
