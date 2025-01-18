@@ -56,11 +56,30 @@ function addSet(bang, query)
 
 	tr.id = id;
 	tr.setAttribute("id", id);
-	tr.innerHTML =`
-<td><input type="text" id="${id}_bang" value="${bang}"></input></td>
-<td><input type="text" id="${id}_query" value="${query}"></input></td>
-<td><button id="${id}_remove">❌</button></td>`;
-	
+    {
+        const input = tr
+            .appendChild(document.createElement("td"))
+            .appendChild(document.createElement("input"));
+        input.type = "text";
+        input.id = `${id}_bang`;
+        input.value = bang;
+    }
+    {
+        const input = tr
+            .appendChild(document.createElement("td"))
+            .appendChild(document.createElement("input"));
+        input.type = "text";
+        input.id = `${id}_query`;
+        input.value = query;
+    }
+    {
+        const input = tr
+            .appendChild(document.createElement("td"))
+            .appendChild(document.createElement("button"));
+        input.id = `${id}_remove`;
+        input.innerText = "❌";
+    }
+
 	document.getElementById("sets").appendChild(tr);
 	document.getElementById(`${id}_remove`).addEventListener("click", function(){removeSet(id);});
 
@@ -78,5 +97,3 @@ document.addEventListener("DOMContentLoaded",
 		document.getElementById("save").addEventListener("click", saveOptionsListener);
 	}
 );
-
-
