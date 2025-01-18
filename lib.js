@@ -16,7 +16,7 @@ const DEFAULT_BANG_DICTIONARY =
 		"yt":"https://www.youtube.com/results?search_query=",
 	};
 
-const BANG_EXTRACTOR = /!([a-zA-Z_]+)/g;
+const BANG_EXTRACTOR = /!([a-zA-Z_]+)/;
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
 function redirect(tabId, url)
@@ -26,48 +26,74 @@ function redirect(tabId, url)
 	browser.tabs.update(tabId, {url: url});
 }
 
-function getURL(bang_value)
-{
-    console.log("CSB: get URL");
-	return bang_dictionary[bang_value];
+function extractBang(query) {
+    const bangs = BANG_EXTRACTOR.exec(query);
+    const bang = bangs?.[1];
+
+    if (bang) {
+        return bang;
+    }
+
+    return null;
 }
 
-function listener(req)
-{
-    const url_params = new URLSearchParams(req.url);
-    let query = url_params?.get('q');
+function extractQuery(url) {
+    console.log("URL: "+ url);
+    const url_params = new URLSearchParams(url);
+    console.log(url_params);
+    return url_params?.get('q');
+}
+
+function parseUrl(url) {
+    let query = extractQuery(url)
 
     // No query
     if (!query) {
-        return;
+        console.log("No query");
+        return null;
     }
 
     console.log("CSB: search query: '" + query + "'");
-    const bangs = BANG_EXTRACTOR.exec(query);
-    if (!bangs) {
-        console.log("CSB: No bangs in '" + query + "'");
-        return;
-    }
-    console.log("CSB: bangs found: ", bangs);
 
-    const bang = bangs[1];
-    console.log(bang);
+    const bang = extractBang(query);
     if (!bang) {
-        return
+        return null;
     }
-    console.log("CSB: found bang: '" + bang + "'");
 
 	// Get search url
-	const search_url = getURL(bang);
+	const search_url = bang_dictionary[bang];
 	if(!search_url)
 	{
 		console.log("CSB: no definition for '" + bang + "'");
-		return;
+		return null;
 	}
 
     query = query.replace("!"+bang, "").trim()
     console.log("CSB: trimmed query: '" + query + "'");
 
     console.log("CSB: redirecting!");
-    redirect(req.tabId, search_url+query);
+    return search_url + query;
+}
+
+function listener(req)
+{
+    const new_url = parseUrl(req.url);
+    if (new_url) {
+        redirect(req.tabId, new_url);
+    }
+}
+
+if (require.main === module) {
+    const assert = require('assert');
+
+    assert(extractBang("!g hello") == "g");
+    assert(extractBang("!t hello") == "t");
+    assert(extractBang("  !t") == "t");
+    assert(extractBang("!t") == "t");
+    assert.equal(extractQuery("https://duckduckgo.com/?t=ffab&q=hi&ia=web"), "hi");
+    assert.equal(extractQuery("https://duckduckgo.com/?q=hi&ia=web"), "hi");
+
+    bang_dictionary["l"] = "https://localhost/?q=";
+
+    assert.equal(parseUrl("https://example.com/?q=!l+hi"),"https://localhost/?q=hi");
 }
