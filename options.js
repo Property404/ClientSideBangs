@@ -38,11 +38,8 @@ function restoreOptions() {
 		}
 	}
 
-	function onError(error) {
-	}
-
 	let getting = browser.storage.sync.get("sets");
-	getting.then(setCurrentChoice, onError);
+	getting.then(setCurrentChoice, console.error);
 }
 
 function removeSet(id)
