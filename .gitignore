@@ -2,7 +2,6 @@
 !.gitignore
 !*.json
 !*.js
-!*.xml
 !*.png
 !*.md
 !*.html
