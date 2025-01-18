@@ -14,13 +14,6 @@ const DEFAULT_BANG_DICTIONARY =
 const BANG_EXTRACTOR = /!([a-zA-Z_]+)/;
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
-function redirect(tabId, url)
-{
-	console.log("CSB: Redirect tab: "+tabId)
-	console.log("CSB: Redirect url: "+url)
-	browser.tabs.update(tabId, {url: url});
-}
-
 function extractBang(query) {
     const bangs = BANG_EXTRACTOR.exec(query);
     const bang = bangs?.[1];
@@ -68,15 +61,6 @@ function parseUrl(url) {
     console.log("CSB: trimmed query: '" + query + "'");
 
     return search_url + query;
-}
-
-function listener(req)
-{
-    const new_url = parseUrl(req.url);
-    if (new_url) {
-        console.log("CSB: redirecting!");
-        redirect(req.tabId, new_url);
-    }
 }
 
 if (typeof(window) == "undefined") {
