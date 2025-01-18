@@ -28,7 +28,7 @@
 
   "background": 
     {
-      "scripts": ["common.js", "main.js"]
+      "scripts": ["lib.js", "main.js"]
     }
 
 }
