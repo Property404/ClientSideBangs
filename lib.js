@@ -29,7 +29,6 @@ function extractQuery(url) {
     if (typeof(url) == "string") {
         url = new URL(url)
     }
-    console.log("URL: "+ url);
     return new URLSearchParams(url.search)?.get('q');
 }
 
@@ -38,11 +37,8 @@ function parseUrl(url) {
 
     // No query
     if (!query) {
-        console.log("No query");
         return null;
     }
-
-    console.log("CSB: search query: '" + query + "'");
 
     const bang = extractBang(query);
     if (!bang) {
@@ -53,12 +49,10 @@ function parseUrl(url) {
 	const search_url = bang_dictionary[bang];
 	if(!search_url)
 	{
-		console.log("CSB: no definition for '" + bang + "'");
 		return null;
 	}
 
     query = query.replace("!"+bang, "").trim()
-    console.log("CSB: trimmed query: '" + query + "'");
 
     return search_url + query;
 }
