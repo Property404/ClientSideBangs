@@ -6,7 +6,7 @@ const DEFAULT_BANG_DICTIONARY =
 		"bv":"https://www.bing.com/videos?q=",
 		"g":"https://www.google.com/search?hl=en&q=",
 		"gh":"https://github.com/search?q=",
-		"mdn":"https://developer.mozilla.org/en-US/search?q="
+		"mdn":"https://developer.mozilla.org/en-US/search?q=",
 		"r":"https://www.reddit.com/search?q=",
 		"spotify":"https://open.spotify.com/search/",
 		"tw":"https://twitter.com/search?q=",
