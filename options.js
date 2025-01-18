@@ -55,7 +55,7 @@ function removeSet(id)
 function addSet(bang, query)
 {
 	const id = ""+(++current_id);
-	let tr = document.createElement("tr");
+	const tr = document.createElement("tr");
 
 	tr.id = id;
 	tr.setAttribute("id", id);

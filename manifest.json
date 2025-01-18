@@ -9,13 +9,18 @@
     "48": "images/ddg-48.png"
   },
 
-  "permissions":["*://duckduckgo.com/*", "webRequest", "storage"],
+  "permissions":[
+      "*://duckduckgo.com/*",
+      "*://www.google.com/*",
+      "webRequest",
+      "storage"
+  ],
 
   "options_ui":{
 		"page":"options.html"
   },
 
-  "applications":{
+  "browser_specific_settings":{
 	  "gecko":{
 		  "id":"ddgcsbr@example.com"
 	  }

@@ -1,88 +1,79 @@
-const BASE = "https://duckduckgo.com/?q=";
-const BANG = "%21"
+"use strict";
+
+const BANG_EXTRACTOR = /!([a-zA-Z_]+)/g;
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
 
 function redirect(tabId, url)
 {
-	console.log("Redirect tab: "+tabId)
-	console.log("Redirect url: "+url)
+	console.log("CSB: Redirect tab: "+tabId)
+	console.log("CSB: Redirect url: "+url)
 	browser.tabs.update(tabId, {url: url});
 }
 
 function getURL(bang_value)
 {
+    console.log("CSB: get URL");
 	return bang_dictionary[bang_value];
 }
 
 function listener(req)
 {
-	let bang_loc=BASE.length;//bang location
-	for (;bang_loc<req.url.length;bang_loc++)
-	{
-		if(req.url.substr(bang_loc, 3) == BANG)
-			break;
-	}
+    const url_params = new URLSearchParams(req.url);
+    let query = url_params?.get('q');
 
-	// No bangs
-	if(bang_loc == req.url.length)
-	{
-		return;
-	}
+    // No query
+    if (!query) {
+        return;
+    }
 
-	// Identify bang 
-	let bang_value = "";
-	let bang_length = BANG.length;
+    console.log("CSB: search query: '" + query + "'");
+    const bangs = BANG_EXTRACTOR.exec(query);
+    if (!bangs) {
+        console.log("CSB: No bangs in '" + query + "'");
+        return;
+    }
+    console.log("CSB: bangs found: ", bangs);
 
-	for(;bang_length+bang_loc<req.url.length;bang_length++)
-	{
-		const c = req.url[bang_length+bang_loc];
-		if( c=='&' || c=='+')
-		{
-			if(c=='+')
-				bang_length+=1;
-			break;
-		}
-		bang_value += c;
-	}
+    const bang = bangs[1];
+    console.log(bang);
+    if (!bang) {
+        return
+    }
+    console.log("CSB: found bang: '" + bang + "'");
 
 	// Get search url
-	let search_url = getURL(bang_value);
+	const search_url = getURL(bang);
 	if(!search_url)
 	{
-		console.log("No client side bang");
+		console.log("CSB: no definition for '" + bang + "'");
 		return;
 	}
 
-	// Strip away bang
-	let query = req.url.split('&')[0];
-	query = query.substr(BASE.length, bang_loc-BASE.length)
-			+ query.substr(bang_loc+bang_length, query.length-bang_loc-bang_length);
+    query = query.replace("!"+bang, "").trim()
+    console.log("CSB: trimmed query: '" + query + "'");
 
-
-	if(query)
-	{
-		console.log("Redirect");
-		redirect(req.tabId, search_url+query);
-	}
-	else
-	{
-		// Redirect to main page if no query
-		console.log("To main page");
-		redirect(req.tabId, search_url.split("/").slice(0,3).join("/"));
-	}
+    console.log("CSB: redirecting!");
+    redirect(req.tabId, search_url+query);
 }
 browser.webRequest.onBeforeRequest.addListener(
 	listener,
-	{urls: ["*://duckduckgo.com/?q=*"]}
+	{
+        urls: [
+            "*://duckduckgo.com/*",
+            "*://www.google.com/*"
+        ]
+    }
 );
 
 // Fetch settings after manual addon reloading.
 browser.storage.sync.get('sets').then(function (result) {
-	bang_dictionary = result.sets;
+    console.log("CSB: sets: " + result.sets);
+	bang_dictionary = result.sets ?? DEFAULT_BANG_DICTIONARY;
 });
 
 browser.storage.onChanged.addListener(function (changes, where){
+    console.log("CSB: addList");
 	if (changes.sets && where == 'sync') {
-		bang_dictionary = changes.sets.newValue;
+		bang_dictionary = changes.sets.newValue ?? DEFAULT_BANG_DICTIONARY;
 	}
 });

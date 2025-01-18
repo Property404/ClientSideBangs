@@ -4,6 +4,7 @@ const DEFAULT_BANG_DICTIONARY =
 		"b":"https://www.bing.com/search?q=",
 		"bing":"https://www.bing.com/search?q=",
 		"bv":"https://www.bing.com/videos?q=",
+        "d": "https://dagans.dev/search?q=",
 		"g":"https://www.google.com/search?hl=en&q=",
 		"gh":"https://github.com/search?q=",
 		"mdn":"https://developer.mozilla.org/en-US/search?q=",
