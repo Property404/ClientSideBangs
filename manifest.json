@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ClientSideBangs",
-  "version": "0.2.1",
+  "version": "0.3.0",
 
   "description": "Redirects certain bangs on the client side instead of asking DDG, allowing for a faster search experience and customization",
 
