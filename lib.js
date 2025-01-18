@@ -3,6 +3,7 @@
 const DEFAULT_BANG_DICTIONARY =
 	{
         "d": "https://dagans.dev/search?q=",
+        "ddg": "https://duckduckgo.com/?q=",
 		"g":"https://www.google.com/search?hl=en&q=",
 		"gh":"https://github.com/search?q=",
 		"r":"https://www.reddit.com/search?q=",
