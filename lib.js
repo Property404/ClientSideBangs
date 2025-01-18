@@ -38,8 +38,11 @@ function extractBang(query) {
 }
 
 function extractQuery(url) {
+    if (typeof(url) == "string") {
+        url = new URL(url)
+    }
     console.log("URL: "+ url);
-    const url_params = new URLSearchParams(url);
+    const url_params = new URLSearchParams(url.search);
     console.log(url_params);
     return url_params?.get('q');
 }
@@ -71,7 +74,6 @@ function parseUrl(url) {
     query = query.replace("!"+bang, "").trim()
     console.log("CSB: trimmed query: '" + query + "'");
 
-    console.log("CSB: redirecting!");
     return search_url + query;
 }
 
@@ -79,6 +81,7 @@ function listener(req)
 {
     const new_url = parseUrl(req.url);
     if (new_url) {
+        console.log("CSB: redirecting!");
         redirect(req.tabId, new_url);
     }
 }
@@ -95,5 +98,6 @@ if (require.main === module) {
 
     bang_dictionary["l"] = "https://localhost/?q=";
 
-    assert.equal(parseUrl("https://example.com/?q=!l+hi"),"https://localhost/?q=hi");
+    assert.equal(parseUrl("https://example?q=!l+hi"),"https://localhost/?q=hi");
+    assert.equal(parseUrl("https://example?q=!l"),"https://localhost/?q=");
 }
