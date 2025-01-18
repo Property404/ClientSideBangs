@@ -81,7 +81,7 @@ function listener(req)
     }
 }
 
-if (require?.main === module) {
+if (typeof(window) == "undefined") {
     const assert = require('assert');
 
     assert(extractBang("!g hello") == "g");
