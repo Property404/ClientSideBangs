@@ -13,8 +13,8 @@ browser.webRequest.onBeforeRequest.addListener(
 	listener,
 	{
         urls: [
-            "*://duckduckgo.com/*",
-            "*://www.google.com/search*"
+            "https://duckduckgo.com/?*",
+            "https://www.google.com/search*"
         ]
     }
 );
