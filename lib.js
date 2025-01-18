@@ -37,9 +37,7 @@ function extractQuery(url) {
         url = new URL(url)
     }
     console.log("URL: "+ url);
-    const url_params = new URLSearchParams(url.search);
-    console.log(url_params);
-    return url_params?.get('q');
+    return new URLSearchParams(url.search)?.get('q');
 }
 
 function parseUrl(url) {
