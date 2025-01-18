@@ -10,8 +10,8 @@ function listener(req)
 }
 
 browser.webRequest.onBeforeRequest.addListener(
-	listener,
-	{
+    listener,
+    {
         urls: [
             "https://duckduckgo.com/?*",
             "https://www.google.com/search*"
@@ -21,11 +21,11 @@ browser.webRequest.onBeforeRequest.addListener(
 
 // Fetch settings after manual addon reloading.
 browser.storage.sync.get('sets').then(function (result) {
-	bang_dictionary = result.sets ?? DEFAULT_BANG_DICTIONARY;
+    bang_dictionary = result.sets ?? DEFAULT_BANG_DICTIONARY;
 });
 
 browser.storage.onChanged.addListener(function (changes, where){
-	if (changes.sets && where == 'sync') {
-		bang_dictionary = changes.sets.newValue ?? DEFAULT_BANG_DICTIONARY;
-	}
+    if (changes.sets && where == 'sync') {
+        bang_dictionary = changes.sets.newValue ?? DEFAULT_BANG_DICTIONARY;
+    }
 });

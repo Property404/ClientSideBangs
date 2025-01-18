@@ -1,16 +1,16 @@
 "use strict";
 
 const DEFAULT_BANG_DICTIONARY =
-	{
+    {
         "d": "https://dagans.dev/search?q=",
         "ddg": "https://duckduckgo.com/?q=",
-		"g":"https://www.google.com/search?hl=en&q=",
-		"gh":"https://github.com/search?q=",
-		"r":"https://www.reddit.com/search?q=",
-		"spotify":"https://open.spotify.com/search/",
-		"w":"https://wikipedia.org/wiki/Special:Search?search=",
-		"yt":"https://www.youtube.com/results?search_query=",
-	};
+        "g":"https://www.google.com/search?hl=en&q=",
+        "gh":"https://github.com/search?q=",
+        "r":"https://www.reddit.com/search?q=",
+        "spotify":"https://open.spotify.com/search/",
+        "w":"https://wikipedia.org/wiki/Special:Search?search=",
+        "yt":"https://www.youtube.com/results?search_query=",
+    };
 
 const BANG_EXTRACTOR = /!([a-zA-Z_]+)/;
 let bang_dictionary = DEFAULT_BANG_DICTIONARY;
@@ -46,12 +46,12 @@ function parseUrl(url) {
         return null;
     }
 
-	// Get search url
-	const search_url = bang_dictionary[bang];
-	if(!search_url)
-	{
-		return null;
-	}
+    // Get search url
+    const search_url = bang_dictionary[bang];
+    if(!search_url)
+    {
+        return null;
+    }
 
     query = query.replace("!"+bang, "").trim()
 
