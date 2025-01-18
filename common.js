@@ -9,7 +9,6 @@ const DEFAULT_BANG_DICTIONARY =
 		"mdn":"https://developer.mozilla.org/en-US/search?q=",
 		"r":"https://www.reddit.com/search?q=",
 		"spotify":"https://open.spotify.com/search/",
-		"tw":"https://twitter.com/search?q=",
 		"w":"https://wikipedia.org/wiki/Search?search=",
 		"yt":"https://www.youtube.com/results?search_query=",
 	}
