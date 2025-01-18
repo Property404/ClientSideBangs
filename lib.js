@@ -54,8 +54,11 @@ function parseUrl(url) {
     }
 
     query = query.replace("!"+bang, "").trim()
-
-    return search_url + query;
+    if (query === "") {
+        return new URL(search_url).origin;
+    } else {
+        return search_url + query;
+    }
 }
 
 if (typeof(window) == "undefined") {
@@ -71,5 +74,6 @@ if (typeof(window) == "undefined") {
     bang_dictionary["l"] = "https://localhost/?q=";
 
     assert.equal(parseUrl("https://example?q=!l+hi"),"https://localhost/?q=hi");
-    assert.equal(parseUrl("https://example?q=!l"),"https://localhost/?q=");
+    // Just go to home if no query
+    assert.equal(parseUrl("https://example?q=!l"),"https://localhost");
 }
