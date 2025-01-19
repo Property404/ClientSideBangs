@@ -1,6 +1,8 @@
 "use strict";
 
 const DEFAULT_BANG_DICTIONARY = {
+    "a": "https://www.amazon.com/s?k=",
+    "b": "https://www.bing.com/search?q=",
     "ddg": "https://duckduckgo.com/?q=",
     "gh":"https://github.com/search?q=",
     "g":"https://www.google.com/search?hl=en&q=",
