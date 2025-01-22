@@ -1,4 +1,5 @@
 *
+!/**/
 !.gitignore
 !*.json
 !*.js
@@ -6,5 +7,8 @@
 !*.md
 !*.html
 !*.css
-!images
+!*.yml
 !LICENSE
+
+web-ext-artifacts
+node_modules
