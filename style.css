@@ -1,0 +1,199 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+* {
+    box-sizing: border-box;
+}
+
+/* From Firefox's common.css */
+:host(.anonymous-content-host),
+:root {
+  --in-content-page-color: rgb(21, 20, 26);
+  --in-content-page-background: var(--background-color-canvas);
+  --in-content-text-color: var(--in-content-page-color);
+  --in-content-box-background-odd: rgba(12, 12, 13, 0.05); /* grey 90 a05 */
+  --in-content-box-border-color: color-mix(in srgb, currentColor 41%, transparent);
+  --in-content-box-info-background: #f0f0f4;
+  --in-content-item-hover: color-mix(in srgb, var(--in-content-primary-button-background) 20%, transparent);
+  --in-content-item-hover-text: var(--in-content-page-color);
+  --in-content-item-selected: var(--in-content-primary-button-background);
+  --in-content-item-selected-text: var(--in-content-primary-button-text-color);
+  --in-content-border-invalid: var(--red-50);
+  --in-content-border-color: #d7d7db;
+  --in-content-button-text-color: var(--in-content-text-color);
+  --in-content-button-text-color-hover: var(--in-content-text-color);
+  --in-content-button-text-color-active: var(--in-content-button-text-color-hover);
+  --in-content-button-background: color-mix(in srgb, currentColor 7%, transparent);
+  --in-content-button-background-hover: color-mix(in srgb, currentColor 14%, transparent);
+  --in-content-button-background-active: color-mix(in srgb, currentColor 21%, transparent);
+  --in-content-button-border-color: transparent;
+  --in-content-button-border-color-hover: transparent;
+  --in-content-button-border-color-active: var(--in-content-button-border-color-hover);
+  --in-content-primary-button-text-color: rgb(251,251,254);
+  --in-content-primary-button-text-color-hover: var(--in-content-primary-button-text-color);
+  --in-content-primary-button-text-color-active: var(--in-content-primary-button-text-color);
+  --in-content-primary-button-background: #0061e0;
+  --in-content-primary-button-background-hover: #0250bb;
+  --in-content-primary-button-background-active: #053e94;
+  --in-content-primary-button-border-color: transparent;
+  --in-content-primary-button-border-hover: transparent;
+  --in-content-primary-button-border-active: transparent;
+  --in-content-danger-button-background: #e22850;
+  --in-content-danger-button-background-hover: #c50042;
+  --in-content-danger-button-background-active: #810220;
+  --in-content-focus-outline-color: var(--focus-outline-color);
+  --in-content-focus-outline-width: var(--focus-outline-width);
+  --in-content-focus-outline-offset: var(--focus-outline-offset);
+  --in-content-focus-outline-inset: var(--focus-outline-inset);
+  --in-content-focus-outline: var(--focus-outline);
+
+  --in-content-table-background: #f8f8fa;
+  --in-content-table-border-color: var(--in-content-box-border-color);
+  --in-content-table-header-background: var(--in-content-primary-button-background);
+  --in-content-table-header-color: var(--in-content-primary-button-text-color);
+  --in-content-sidebar-width: 280px;
+
+  --dialog-warning-text-color: var(--red-60);
+
+  --blue-40: #45a1ff;
+  --blue-50: #0a84ff;
+  --blue-60: #0060df;
+  --grey-30: #d7d7db;
+  --grey-60: #4a4a4f;
+  --grey-90-a10: rgba(12, 12, 13, 0.1);
+  --grey-90-a20: rgba(12, 12, 13, 0.2);
+  --grey-90-a30: rgba(12, 12, 13, 0.3);
+  --grey-90-a60: rgba(12, 12, 13, 0.6);
+  --green-60: #12bc00;
+  --green-70: #058b00;
+  --orange-50: #ff9400;
+  --red-40: #ff4f5e;
+  --red-50: #ff0039;
+  --red-60: #d70022;
+  --yellow-50: #ffe900;
+  --yellow-60: #d7b600;
+  --yellow-60-a30: rgba(215, 182, 0, 0.3);
+  --yellow-90: #3e2800;
+
+  --shadow-10: 0 1px 4px var(--grey-90-a10);
+  --shadow-30: 0 4px 16px var(--grey-90-a10);
+
+  --card-padding: 16px;
+  --card-shadow: var(--shadow-10);
+  --card-outline-color: var(--grey-30);
+  --card-shadow-hover: var(--card-shadow), 0 0 0 5px var(--card-outline-color);
+
+  -moz-theme: non-native;
+  accent-color: var(--color-accent-primary);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host(.anonymous-content-host),
+  :root {
+    /* Keep these in sync with:
+     *
+     *  * nsXPLookAndFeel::GenericDarkColor
+     *  * The default value of browser.display.foreground_color.dark and
+     *    browser.display.background_color.dark
+     *
+     * TODO (emilio): Once color-scheme support is complete, perhaps we can
+     * just replace most of these for system colors and remove all this
+     * duplication (assuming we honor the preferred color scheme for
+     * in-content privileged pages and plain-text documents). */
+    --in-content-page-color: rgb(251,251,254);
+
+    --in-content-box-background-odd: rgba(249,249,250,0.05);
+    --in-content-box-info-background: rgba(249,249,250,0.15);
+
+    --in-content-border-color: rgba(249,249,250,0.2);
+    --in-content-border-invalid: rgb(255,132,139);
+
+    --in-content-primary-button-text-color: rgb(43,42,51);
+    --in-content-primary-button-background: rgb(0,221,255);
+    --in-content-primary-button-background-hover: rgb(128,235,255);
+    --in-content-primary-button-background-active: rgb(170,242,255);
+
+    --in-content-danger-button-background: #ff848b;
+    --in-content-danger-button-background-hover: #ffbdc5;
+    --in-content-danger-button-background-active: #ffdfe7;
+
+    --in-content-table-background: rgb(35, 34, 43);
+
+    --card-outline-color: var(--grey-60);
+
+    --dialog-warning-text-color: var(--red-40);
+
+    scrollbar-color: rgba(249,249,250,.4) rgba(20,20,25,.3);
+  }
+
+  /* For dialogs, use a different background colour. We don't do
+   * this in forced colors mode, as we should be using system colours then.
+   */
+  @media not (forced-colors) {
+    :root[dialogroot] {
+      --in-content-page-background: #42414d;
+    }
+  }
+}
+
+@media (forced-colors) {
+  :host(.anonymous-content-host),
+  :root {
+    --in-content-page-color: CanvasText;
+
+    --in-content-box-background-odd: var(--background-color-box);
+    --in-content-box-border-color: -moz-DialogText;
+    --in-content-box-info-background: var(--background-color-box);
+
+    --in-content-item-hover: SelectedItem;
+    --in-content-item-hover-text: SelectedItemText;
+    --in-content-item-selected: SelectedItem;
+    --in-content-item-selected-text: SelectedItemText;
+
+    /* This is not great, but there is no suitable keyword for this.
+     * In theory, we shouldn't be conveying invalid state just with a colour
+     * change... */
+    --in-content-border-invalid: ThreeDShadow;
+    --in-content-border-color: var(--border-color);
+
+    --in-content-button-text-color: ButtonText;
+    --in-content-button-text-color-hover: SelectedItemText;
+    --in-content-button-text-color-active: SelectedItem;
+    --in-content-button-background: ButtonFace;
+    --in-content-button-background-hover: SelectedItem;
+    --in-content-button-background-active: SelectedItemText;
+    --in-content-button-border-color: ButtonText;
+    --in-content-button-border-color-hover: SelectedItemText;
+    --in-content-button-border-color-active: SelectedItem;
+
+    --in-content-primary-button-text-color: ButtonFace;
+    --in-content-primary-button-text-color-hover: SelectedItemText;
+    --in-content-primary-button-text-color-active: SelectedItem;
+    --in-content-primary-button-background: ButtonText;
+    --in-content-primary-button-background-hover: SelectedItem;
+    --in-content-primary-button-background-active: SelectedItemText;
+    --in-content-primary-button-border-color: ButtonFace;
+    --in-content-primary-button-border-hover: SelectedItemText;
+    --in-content-primary-button-border-active: SelectedItem;
+
+    --in-content-danger-button-background: var(--in-content-primary-button-background);
+    --in-content-danger-button-background-hover: var(--in-content-primary-button-background-hover);
+    --in-content-danger-button-background-active: var(--in-content-primary-button-background-active);
+
+    --in-content-focus-outline-color: -moz-DialogText;
+
+    --in-content-table-border-color: ThreeDDarkShadow;
+    --in-content-table-background: -moz-Dialog;
+    --in-content-table-header-background: -moz-Dialog;
+    --in-content-table-header-color: -moz-DialogText;
+
+    --dialog-warning-text-color: -moz-FieldText;
+  }
+}
+
+button {
+	text-shadow: 0 0 0 var(--in-content-text-color);
+	color: transparent;
+}
