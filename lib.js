@@ -63,7 +63,8 @@ function parseUrl(url) {
     } else {
         query = encodeURI(query)
             .replaceAll("+","%2B")
-            .replaceAll("&","%26");
+            .replaceAll("&","%26")
+            .replaceAll("#","%23");
         return search_url + query;
     }
 }
