@@ -61,7 +61,9 @@ function parseUrl(url) {
     if (query === "") {
         return new URL(search_url).origin;
     } else {
-        query = encodeURI(query).replaceAll("+","%2B");
+        query = encodeURI(query)
+            .replaceAll("+","%2B")
+            .replaceAll("&","%26");
         return search_url + query;
     }
 }
